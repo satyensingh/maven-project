@@ -1,21 +1,20 @@
 pipeline {
-    agent any
-
-    stages {
-        stage('Build') {
-            steps {
-                echo 'Building..'
-            }
-        }
-        stage('Test') {
-            steps {
-                echo 'Testing..'
-            }
-        }
-        stage('Deploy') {
-            steps {
-                echo 'Deploying....'
-            }
-        }
-    }
+	agent any
+	tools {
+		maven 'localMaven'
+	}
+	stages {
+		stage ('Building') {
+			steps {
+				echo 'Bilding the project...'
+				sh 'mvn clean package'
+			}
+			post {
+				success {
+					echo 'Archiving Artifacts...'
+					archiveArtifacts artifacts: '**/*.war'
+				}
+			}
+		}
+	}
 }
