@@ -27,7 +27,7 @@ stages{
             parallel{
                 stage ('Deploy to Staging'){
                     steps {
-                        sh "scp -i /home/cloud_user/id_rsa **/target/*.war cloud_user@${params.tomcat_dev}:/var/lib/tomcat8/webapps"
+                        sh "scp -i /home/cloud_user/id_rsa.pub **/target/*.war cloud_user@${params.tomcat_dev}:/var/lib/tomcat8/webapps"
                     }
                 }
 
