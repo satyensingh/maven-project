@@ -28,7 +28,7 @@ stages{
                 stage ('Deploy to Staging'){
                     steps {
                         sh 'whoami'
-                        sh "scp -i /home/cloud_user/.ssh/id_rsa.pub **/target/*.war cloud_user@${params.tomcat_dev}:/home/cloud_user/apache-tomcat-8.5.42/webapps"
+                        sh "scp -v -o StrictHostKeyChecking=no **/target/*.war cloud_user@${params.tomcat_dev}:/home/cloud_user/apache-tomcat-8.5.42/webapps"
                     }
                 }
 
