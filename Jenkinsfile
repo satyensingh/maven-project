@@ -2,8 +2,8 @@ pipeline {
     agent any
 
     parameters {
-         string(name: 'tomcat_dev', defaultValue: '13.234.113.57', description: 'Staging Server')
-         string(name: 'tomcat_prod', defaultValue: '13.235.16.99', description: 'Production Server')
+         string(name: 'tomcat_dev', defaultValue: '35.166.210.154', description: 'Staging Server')
+         string(name: 'tomcat_prod', defaultValue: '34.209.233.6', description: 'Production Server')
     }
 
     triggers {
@@ -22,19 +22,18 @@ stages{
                 }
             }
         }
-        
+
         stage ('Deployments'){
             parallel{
                 stage ('Deploy to Staging'){
                     steps {
-                        sh 'whoami'
-                        sh "scp -v -o StrictHostKeyChecking=no **/target/*.war cloud_user@${params.tomcat_dev}:/home/cloud_user/apache-tomcat-8.5.42/webapps"
+                        sh "scp -i /home/jenkins/tomcat-demo.pem **/target/*.war ec2-user@${params.tomcat_dev}:/var/lib/tomcat7/webapps"
                     }
                 }
 
                 stage ("Deploy to Production"){
                     steps {
-                        sh "scp -i /home/cloud_user/.ssh/id_rsa.pub **/target/*.war cloud_user@${params.tomcat_prod}:/home/cloud_user/apache-tomcat-8.5.42/webapps"
+                        sh "scp -i /home/jenkins/tomcat-demo.pem **/target/*.war ec2-user@${params.tomcat_prod}:/var/lib/tomcat7/webapps"
                     }
                 }
             }
