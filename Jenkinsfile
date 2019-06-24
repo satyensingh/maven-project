@@ -4,12 +4,7 @@ pipeline {
         stage('Build'){
             steps {
                 sh 'mvn clean package'
-            }
-            post {
-                success {
-                    echo 'Now Creating Image...'
-                    sh 'docker build -t webapp:${env.BUILD_ID} .'
-                }
+                sh 'docker build -t webapp:${env.BUILD_ID} .'
             }
         }
     }
