@@ -4,7 +4,7 @@ pipeline {
         stage('Build'){
             steps {
                 echo "Starting"
-                bat label:'' script: 'mvn clean package'
+                bat label: '', script: 'mvn clean package'
             }
         }
     }
