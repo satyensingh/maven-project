@@ -5,10 +5,14 @@ pipeline {
         maven 'localMaven'
     }
     stages{
-        stage('Build'){
+        stage('Maven-Build'){
             steps {
-                sh 'echo Starting'
                 sh 'mvn clean package'
+            }
+        }
+        stage('Docker-Build'){
+            steps {
+                sh 'docker build -t webapp:${env.BUILD_ID} .'
             }
         }
     }
