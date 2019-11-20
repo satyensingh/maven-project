@@ -12,7 +12,7 @@ pipeline {
         }
         stage('Docker-Build'){
             steps {
-                sh 'docker build -t webapp:${env.BUILD_ID} .'
+                sh "docker build -t webapp:${env.BUILD_ID} ."
             }
         }
     }
